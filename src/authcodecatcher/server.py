@@ -43,6 +43,8 @@ class AuthCodeHandler(http.server.BaseHTTPRequestHandler):
         if not iat:
             print("[!] iat claim missing from token")
 
+        refresh_token = response_map.get("refresh_token", None)
+
         if not os.path.exists(self.server.output_file):
             with open(self.server.output_file, 'w') as f:
                 f.write(json.dump({}))
@@ -58,7 +60,10 @@ class AuthCodeHandler(http.server.BaseHTTPRequestHandler):
 
         token_map = data_map.get("tokens", {})
         user_tokens = token_map.get(upn, [])
-        user_tokens.append((iat, access_token))
+        user_tokens.append((
+            {'iat': iat,
+             'access_token': access_token,
+             'refresh_token': refresh_token}))
         token_map[upn] = user_tokens
         data_map['tokens'] = token_map
 
