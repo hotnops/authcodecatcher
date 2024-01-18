@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling", "requests", "pyjwt", "pkce"]
+build-backend = "hatchling.build"
+
+[project]
+name = "authcodecatcher"
+version = "0.1.0"
+authors = [
+    { name="hotnops"}
+]
+description = "A server to catch Microsoft Entra OAuth codes and exchange them for a JWT token."
+readme = "README.md"
+requires-python = ">=3.10"
+
+[project.urls]
+Homepage = "https://github.com/hotnops/authcodecatcher"
